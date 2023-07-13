@@ -1,0 +1,35 @@
+{
+  "name": "nodejs-backend-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate code for NodeJs backend written in Typescript with Express and MongoDB",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json",
+    "start": "node ./dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "mongodb",
+    "boilerplate",
+    "typescript"
+  ],
+  "repository": {
+    "url": "git@github.com:riturajborpujari/nodejs-backend-boilerplate.git"
+  },
+  "author": {
+    "name": "Rituraj Borpujari",
+    "url": "https://github.com/riturajborpujari"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}

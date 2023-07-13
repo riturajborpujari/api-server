@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "target": "ES2015",
+    "noImplicitAny": false,
+    "outDir": "./dist",
+    "inlineSourceMap": true,
+    "newLine": "LF",
+    "declaration": false,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnreachableCode": false,
+    "noEmitOnError": true
+  },
+  "include": ["src/**/*"]
+}
