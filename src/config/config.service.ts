@@ -1,5 +1,6 @@
-import * as dotenv from "dotenv";
 import * as R from "ramda";
+import * as path from "path";
+import * as dotenv from "dotenv";
 import { IAppConfig } from "./config.interface";
 import { REQUIRED_CONFIGS } from "./config.constants";
 import { allTrue } from "../utils/bool";
@@ -23,7 +24,8 @@ function setConfig(conf: IAppConfig) {
 }
 
 function loadEnvFile() {
-  dotenv.config();
+  const envFilePath = path.resolve(__dirname, "../../environment/.env");
+  dotenv.config({ path: envFilePath });
 }
 
 function sanitizeConfig(conf: any): IAppConfig {
