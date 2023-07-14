@@ -1,4 +1,5 @@
 import * as httpError from "http-errors";
+import { ErrorRequestHandler, RequestHandler } from "express";
 import {
   ErrorHandler,
   ResponseHandler,
@@ -38,6 +39,18 @@ export const onError: ErrorHandler = (err: any, req, res) => {
   });
 };
 
-export function notFoundHandler(req, res) {
+export const notFoundHandler: RequestHandler = (req, res) => {
   return res.status(404).json({ success: false, reason: "Resource not found" });
-}
+};
+
+export const globalErrorHandler: ErrorRequestHandler = (
+  err,
+  req,
+  res,
+  next
+) => {
+  console.error(err);
+  return res
+    .status(500)
+    .json({ success: false, reason: "Internal Server Error" });
+};

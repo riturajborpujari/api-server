@@ -2,7 +2,7 @@ import * as express from "express";
 import { requestLogger } from "./api/request-logger";
 
 import { router as demoRouter } from "./demo/demo.router";
-import { notFoundHandler } from "./api/response-handlers";
+import { globalErrorHandler, notFoundHandler } from "./api/response-handlers";
 
 const app = express();
 
@@ -16,5 +16,6 @@ app.get("/health", (req, res) => {
 app.use("/demo", demoRouter);
 
 app.use(notFoundHandler);
+app.use(globalErrorHandler);
 
 export default app;
