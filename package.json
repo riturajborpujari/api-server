@@ -6,12 +6,12 @@
   "scripts": {
     "build": "npm run test",
     "prebuild": "npm run compile",
-    "postbuild": "npm run clean",
     "compile": "tsc --project ./tsconfig.json",
     "precompile": "npm run style",
     "style": "prettier --check .",
     "prestyle": "npm run lint",
     "lint": "eslint src/**/*.ts",
+    "prelint": "npm run clean",
     "test": "nyc mocha --recursive dist/**/*.spec.js",
     "clean": "rimraf dist/",
     "style-fix": "prettier --write .",
@@ -43,7 +43,6 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
-    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
     "@types/mocha": "^10.0.1",
     "@types/node": "^20.4.2",
