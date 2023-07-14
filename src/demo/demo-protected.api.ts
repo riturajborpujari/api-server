@@ -5,7 +5,7 @@ import { protectedApi } from "../api/protected-api";
 const controller: RequestHandler = (req, res) => {
   return {
     success: true,
-    message: "Demo API Basic Success response",
+    message: "Demo API Protected Success response",
     data: { foo: "bar" },
   };
 };
