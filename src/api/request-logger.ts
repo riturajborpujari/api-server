@@ -1,5 +1,6 @@
 import * as R from "ramda";
 import { RequestHandler } from "express";
+import { logger } from "../utils/logger.utils";
 
 export const requestLogger: RequestHandler = (req, res, next) => {
   const reqTimestamp = Date.now();
@@ -8,7 +9,7 @@ export const requestLogger: RequestHandler = (req, res, next) => {
     const resTimestamp = Date.now();
     const delay = resTimestamp - reqTimestamp;
 
-    console.log(
+    logger.info(
       [
         "api",
         req.method,

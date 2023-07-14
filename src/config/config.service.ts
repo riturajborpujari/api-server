@@ -33,6 +33,8 @@ function sanitizeConfig(conf: any): IAppConfig {
     NODE_ENV: conf.NODE_ENV,
     APP_NAME: conf.APP_NAME,
     APP_PORT: Number(conf.APP_PORT),
+    LOG_LEVEL: conf.LOG_LEVEL,
+
     API_SECRET: conf.API_SECRET
   };
 
@@ -58,6 +60,7 @@ function isLikeAppConfig(conf: any): conf is IAppConfig {
     R.includes(conf.NODE_ENV, ["dev", "stag", "prod"]),
     typeof conf.APP_NAME === "string",
     typeof conf.APP_PORT === "number",
+    R.includes(conf.LOG_LEVEL, ["error", "warn", "info", "verbose", "debug"]),
     typeof conf.API_SECRET === "string"
   );
 

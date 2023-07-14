@@ -5,6 +5,7 @@ import {
   ResponseHandler,
   ResponseValidator
 } from "../utils/api.gate-keeper.utils";
+import { logger } from "../utils/logger.utils";
 
 export type ApiResponse = {
   success: true;
@@ -27,7 +28,7 @@ export const onResponse: ResponseHandler = (response, req, res) => {
 };
 
 export const onError: ErrorHandler = (err: any, req, res) => {
-  console.error(err);
+  logger.error(err);
   const defaultError = httpError.InternalServerError();
 
   err.status = err.status || defaultError.status;
@@ -49,7 +50,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
-  console.error(err);
+  logger.error(err);
   return res
     .status(500)
     .json({ success: false, reason: "Internal Server Error" });
