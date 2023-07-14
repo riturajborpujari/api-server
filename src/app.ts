@@ -2,9 +2,11 @@ import * as express from "express";
 import { jsonApi } from "./api/json-api";
 import { notFoundHandler } from "./api/not-found.handler";
 import { createParamValidator } from "./api/param-validator";
+import { requestLogger } from "./api/logger";
 
 const app = express();
 
+app.use(requestLogger);
 app.use(express.json());
 
 app.get("/health", (req, res) => {
