@@ -1,5 +1,7 @@
 import * as express from "express";
 import { jsonApi } from "./api/json-api";
+import { notFoundHandler } from "./api/not-found.handler";
+import { createParamValidator } from "./api/param-validator";
 
 const app = express();
 
@@ -10,11 +12,7 @@ app.get("/health", (req, res) => {
 });
 
 const demoApi = jsonApi.guard([
-  (req, res) => {
-    if (!req.body.a) {
-      throw new Error("body doesn't contain 'a'");
-    }
-  },
+  createParamValidator(["a"], "body"),
   (req, res) => {
     return {
       success: true,
@@ -25,5 +23,7 @@ const demoApi = jsonApi.guard([
 ]);
 
 app.post("/demo", demoApi);
+
+app.use(notFoundHandler);
 
 export default app;
