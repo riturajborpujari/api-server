@@ -3,7 +3,7 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import { IAppConfig } from "./config.interface";
 import { REQUIRED_CONFIGS } from "./config.constants";
-import { allTrue } from "../utils/bool";
+import { allTrue } from "../utils/bool.utils";
 
 let config = {} as IAppConfig;
 
