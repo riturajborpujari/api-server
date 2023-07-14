@@ -3,7 +3,6 @@ import {
   ErrorHandler,
   ResponseHandler,
   ResponseValidator,
-  createGateKeeper,
 } from "../utils/api.gate-keeper.utils";
 
 export type ApiResponse = {
@@ -12,7 +11,7 @@ export type ApiResponse = {
   data: any;
 };
 
-const isSendable: ResponseValidator = (response) => {
+export const isSendable: ResponseValidator = (response) => {
   const isValidResponse =
     typeof response === "object" &&
     Reflect.get(response, "success") === true &&
@@ -22,11 +21,11 @@ const isSendable: ResponseValidator = (response) => {
   return isValidResponse;
 };
 
-const onResponse: ResponseHandler = (response, req, res) => {
+export const onResponse: ResponseHandler = (response, req, res) => {
   return res.json(response);
 };
 
-const onError: ErrorHandler = (err: any, req, res) => {
+export const onError: ErrorHandler = (err: any, req, res) => {
   console.error(err);
   const defaultError = httpError.InternalServerError();
 
@@ -38,9 +37,3 @@ const onError: ErrorHandler = (err: any, req, res) => {
     reason: err.message,
   });
 };
-
-export const jsonApi = createGateKeeper({
-  isSendable,
-  onResponse,
-  onError,
-});

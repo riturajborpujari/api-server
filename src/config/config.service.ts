@@ -33,6 +33,7 @@ function sanitizeConfig(conf: any): IAppConfig {
     NODE_ENV: conf.NODE_ENV,
     APP_NAME: conf.APP_NAME,
     APP_PORT: Number(conf.APP_PORT),
+    API_SECRET: conf.API_SECRET,
   };
 
   const missingConfigs = REQUIRED_CONFIGS.filter((field) =>
@@ -56,7 +57,8 @@ function isLikeAppConfig(conf: any): conf is IAppConfig {
   const isValid = allTrue(
     R.includes(conf.NODE_ENV, ["dev", "stag", "prod"]),
     typeof conf.APP_NAME === "string",
-    typeof conf.APP_PORT === "number"
+    typeof conf.APP_PORT === "number",
+    typeof conf.API_SECRET === "string"
   );
 
   return isValid;
