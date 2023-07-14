@@ -1,8 +1,8 @@
 import * as express from "express";
 import { requestLogger } from "./api/request-logger";
-import { notFoundHandler } from "./api/not-found.handler";
 
 import { router as demoRouter } from "./demo/demo.router";
+import { notFoundHandler } from "./api/response-handlers";
 
 const app = express();
 

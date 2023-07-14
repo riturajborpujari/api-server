@@ -37,3 +37,7 @@ export const onError: ErrorHandler = (err: any, req, res) => {
     reason: err.message,
   });
 };
+
+export function notFoundHandler(req, res) {
+  return res.status(404).json({ success: false, reason: "Resource not found" });
+}
