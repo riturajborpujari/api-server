@@ -3,7 +3,7 @@ import { ErrorRequestHandler, RequestHandler } from "express";
 import {
   ErrorHandler,
   ResponseHandler,
-  ResponseValidator,
+  ResponseValidator
 } from "../utils/api.gate-keeper.utils";
 
 export type ApiResponse = {
@@ -12,7 +12,7 @@ export type ApiResponse = {
   data: any;
 };
 
-export const isSendable: ResponseValidator = (response) => {
+export const isSendable: ResponseValidator = response => {
   const isValidResponse =
     typeof response === "object" &&
     Reflect.get(response, "success") === true &&
@@ -35,7 +35,7 @@ export const onError: ErrorHandler = (err: any, req, res) => {
 
   return res.status(err.status).json({
     success: false,
-    reason: err.message,
+    reason: err.message
   });
 };
 

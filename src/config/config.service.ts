@@ -33,10 +33,10 @@ function sanitizeConfig(conf: any): IAppConfig {
     NODE_ENV: conf.NODE_ENV,
     APP_NAME: conf.APP_NAME,
     APP_PORT: Number(conf.APP_PORT),
-    API_SECRET: conf.API_SECRET,
+    API_SECRET: conf.API_SECRET
   };
 
-  const missingConfigs = REQUIRED_CONFIGS.filter((field) =>
+  const missingConfigs = REQUIRED_CONFIGS.filter(field =>
     R.not(Reflect.has(config, field))
   );
 

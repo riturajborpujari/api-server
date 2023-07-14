@@ -4,5 +4,5 @@ import { isSendable, onError, onResponse } from "./response-handlers";
 export const basicApi = createGateKeeper({
   isSendable,
   onResponse,
-  onError,
+  onError
 });

@@ -8,14 +8,16 @@ export const requestLogger: RequestHandler = (req, res, next) => {
     const resTimestamp = Date.now();
     const delay = resTimestamp - reqTimestamp;
 
-    console.log([
-      "api",
-      req.method,
-      req.path,
-      res.statusCode,
-      `${delay}ms`,
-      JSON.stringify(R.pick(["query", "params", "body",], req)),
-    ].join(" - "));
+    console.log(
+      [
+        "api",
+        req.method,
+        req.path,
+        res.statusCode,
+        `${delay}ms`,
+        JSON.stringify(R.pick(["query", "params", "body"], req))
+      ].join(" - ")
+    );
   });
 
   next();

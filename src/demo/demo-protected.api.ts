@@ -6,7 +6,7 @@ const controller: RequestHandler = (req, res) => {
   return {
     success: true,
     message: "Demo API Protected Success response",
-    data: { foo: "bar" },
+    data: { foo: "bar" }
   };
 };
 

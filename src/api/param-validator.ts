@@ -6,7 +6,7 @@ export const createParamValidator =
   (params: string[], reqKey: "body" | "query" | "params"): RequestHandler =>
   (req, res) => {
     const paramContainer = Reflect.get(req, reqKey);
-    const missingParams = params.filter((paramName) =>
+    const missingParams = params.filter(paramName =>
       R.not(Reflect.has(paramContainer, paramName))
     );
 

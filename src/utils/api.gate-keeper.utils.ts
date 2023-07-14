@@ -39,8 +39,8 @@ export function createGateKeeper(
   return {
     guard: (handlers: RequestHandler[]) => {
       const pipeline = prependHandlers.concat(handlers);
-      
-      return pipeline.map((handler) => guardApi(handler));
-    },
+
+      return pipeline.map(handler => guardApi(handler));
+    }
   };
 }

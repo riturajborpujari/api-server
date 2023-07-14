@@ -11,7 +11,7 @@ export const protectedApi = createGateKeeper(
   {
     isSendable,
     onResponse,
-    onError,
+    onError
   },
   [isAuthorized]
 );
