@@ -31,9 +31,9 @@ export function createGateKeeper(
           return ideology.onResponse(result, req, res);
         }
 
-        next();
+        return next();
       } catch (err) {
-        ideology.onError(err, req, res);
+        return ideology.onError(err, req, res);
       }
     };
   return {
