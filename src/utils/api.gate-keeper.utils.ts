@@ -25,7 +25,7 @@ export function createGateKeeper(ideology: IIdeology) {
         const result = await Reflect.apply(apiHandler, apiHandler, [req, res]);
 
         if (ideology.isSendable(result)) {
-          ideology.onResponse(result, req, res);
+          return ideology.onResponse(result, req, res);
         }
 
         next();
