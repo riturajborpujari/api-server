@@ -4,12 +4,17 @@
   "description": "Boilerplate code for NodeJs backend written in Typescript with Express and MongoDB",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "npm run style-check",
-    "build": "tsc --project ./tsconfig.json",
-    "prestyle-check": "npm run lint",
+    "build": "npm run test",
+    "prebuild": "npm run compile",
+    "postbuild": "npm run clean",
+    "compile": "tsc --project ./tsconfig.json",
+    "precompile": "npm run style",
     "style": "prettier --check .",
-    "style-fix": "prettier --write .",
+    "prestyle": "npm run lint",
     "lint": "eslint src/**/*.ts",
+    "test": "nyc mocha --recursive dist/**/*.spec.js",
+    "clean": "rimraf dist/",
+    "style-fix": "prettier --write .",
     "lint-fix": "eslint src/**/*.ts --fix",
     "start": "node ./dist/index.js",
     "dev": "ts-node src/index.ts"
@@ -37,14 +42,20 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.5",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^20.4.2",
     "@types/ramda": "^0.29.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "chai": "^4.3.7",
     "eslint": "^8.44.0",
     "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
     "prettier": "^3.0.0",
+    "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
