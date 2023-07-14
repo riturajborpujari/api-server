@@ -17,7 +17,10 @@ export interface IIdeology {
   onError: ErrorHandler;
 }
 
-export function createGateKeeper(ideology: IIdeology) {
+export function createGateKeeper(
+  ideology: IIdeology,
+  prependHandlers: RequestHandler[] = []
+) {
   const guardApi =
     (apiHandler: RequestHandler) =>
     async (req: Request, res: Response, next: NextFunction) => {
@@ -35,7 +38,9 @@ export function createGateKeeper(ideology: IIdeology) {
     };
   return {
     guard: (handlers: RequestHandler[]) => {
-      return handlers.map((handler) => guardApi(handler));
+      const pipeline = prependHandlers.concat(handlers);
+      
+      return pipeline.map((handler) => guardApi(handler));
     },
   };
 }
