@@ -29,7 +29,7 @@ function loadEnvFile() {
 }
 
 function sanitizeConfig(conf: any): IAppConfig {
-  const config = {
+  const sanitizedConfig = {
     NODE_ENV: conf.NODE_ENV,
     APP_NAME: conf.APP_NAME,
     APP_PORT: Number(conf.APP_PORT),
@@ -39,7 +39,7 @@ function sanitizeConfig(conf: any): IAppConfig {
   };
 
   const missingConfigs = REQUIRED_CONFIGS.filter(field =>
-    R.not(Reflect.has(config, field))
+    R.not(Reflect.has(sanitizedConfig, field))
   );
 
   if (R.not(R.isEmpty(missingConfigs))) {
@@ -48,11 +48,11 @@ function sanitizeConfig(conf: any): IAppConfig {
     );
   }
 
-  if (R.not(isLikeAppConfig(config))) {
+  if (R.not(isLikeAppConfig(sanitizedConfig))) {
     throw new Error("Invalid Env: Type mismatch");
   }
 
-  return config as IAppConfig;
+  return sanitizedConfig as IAppConfig;
 }
 
 function isLikeAppConfig(conf: any): conf is IAppConfig {
