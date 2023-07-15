@@ -1,4 +1,5 @@
 import * as httpError from "http-errors";
+import * as R from "ramda";
 import { ErrorRequestHandler, RequestHandler } from "express";
 import {
   ErrorHandler,
@@ -24,15 +25,20 @@ export const isSendable: ResponseValidator = response => {
 };
 
 export const onResponse: ResponseHandler = (response, req, res) => {
+  res.locals.response = response;
   return res.json(response);
 };
 
 export const onError: ErrorHandler = (err: any, req, res) => {
-  logger.error(err);
-  const defaultError = httpError.InternalServerError();
-
-  err.status = err.status || defaultError.status;
-  err.message = err.message || defaultError.message;
+  res.locals.error = err;
+  logger.error(err.stack);
+  
+  if (R.not(Reflect.has(err, "status"))) {
+    const defaultError = httpError.InternalServerError();
+    
+    Reflect.set(err, "status", defaultError.status);
+    Reflect.set(err, "message", defaultError.message);
+  }
 
   return res.status(err.status).json({
     success: false,
