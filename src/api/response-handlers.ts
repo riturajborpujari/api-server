@@ -32,10 +32,10 @@ export const onResponse: ResponseHandler = (response, req, res) => {
 export const onError: ErrorHandler = (err: any, req, res) => {
   res.locals.error = err;
   logger.error(err.stack);
-  
+
   if (R.not(Reflect.has(err, "status"))) {
     const defaultError = httpError.InternalServerError();
-    
+
     Reflect.set(err, "status", defaultError.status);
     Reflect.set(err, "message", defaultError.message);
   }
