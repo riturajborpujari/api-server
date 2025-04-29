@@ -16,27 +16,3 @@ jobs:
 
       - name: build the project
         run: npm run build
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: deploy in EC2
-        env:
-          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
-          EC2_HOSTNAME: ${{ secrets.EC2_HOSTNAME  }}
-          EC2_USERNAME: ${{ secrets.EC2_USERNAME  }}
-
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${EC2_USERNAME}@${EC2_HOSTNAME} '
-            #Now we have got the access of EC2 and we will start the deploy .
-            cd /home/ec2-user/nodejs-backend-boilerplate &&
-            git checkout master &&
-            git pull origin master &&
-            npm install &&
-            npm run build &&
-            pm2 reload pm2.config.js
-          '
