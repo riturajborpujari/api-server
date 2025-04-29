@@ -5,22 +5,16 @@ import { expect } from "chai";
 
 describe("Param Validator", () => {
   it("should throw if required param is missing", () => {
-    const fn = () =>
-      createParamValidator(["bar"], "body")(
-        { body: { foo: "bar" } } as unknown as Request,
-        {} as unknown as Response,
-        () => {}
-      );
+    const validator = createParamValidator(["foo"], "body");
+    const fn = (): void =>
+      validator({ body: { bar: "baz" } } as unknown as Request) as void;
     expect(fn).to.throw();
   });
 
   it("should pass if required param is present", () => {
-    const fn = () =>
-      createParamValidator(["foo"], "body")(
-        { body: { foo: "bar" } } as unknown as Request,
-        {} as unknown as Response,
-        () => {}
-      );
+    const validator = createParamValidator(["foo"], "body");
+    const fn = (): void =>
+      validator({ body: { foo: "bar" } } as unknown as Request) as void;
     expect(fn).to.not.throw();
   });
 });

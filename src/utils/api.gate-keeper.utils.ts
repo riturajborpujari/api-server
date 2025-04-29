@@ -29,7 +29,7 @@ export function createGateKeeper(
 
       return async (req: Request, res: Response, next: NextFunction) => {
         try {
-          for (let handler of allHandlers) {
+          for (const handler of allHandlers) {
             result = await Reflect.apply(handler, handler, [req]);
             if (ideology.isSendable(result)) {
               return ideology.onResponse(result, req, res);

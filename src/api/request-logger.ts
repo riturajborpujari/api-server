@@ -1,7 +1,6 @@
 import * as R from "ramda";
 import { RequestHandler, Request, Response } from "express";
 import { logger } from "../utils/logger.utils";
-import createHttpError = require("http-errors");
 
 export const requestLogger: RequestHandler = (req, res, next) => {
   const reqTimestamp = Date.now();
@@ -16,7 +15,7 @@ export const requestLogger: RequestHandler = (req, res, next) => {
   next();
 };
 
-function buildRequestLog(req: Request, res: Response, delayInMs) {
+function buildRequestLog(req: Request, res: Response, delayInMs: number) {
   const components = [
     req.method,
     req.baseUrl + req.path,

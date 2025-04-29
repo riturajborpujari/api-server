@@ -7,7 +7,6 @@ import {
   ResponseValidator
 } from "../utils/api.gate-keeper.utils";
 import { logger } from "../utils/logger.utils";
-import createHttpError = require("http-errors");
 
 export type ApiResponse = {
   success: true;
@@ -35,7 +34,7 @@ export const onResponse: ResponseHandler = (response, req, res) => {
 export const onError: ErrorHandler = (actualError: any, req, res) => {
   logger.debug(actualError.stack);
 
-  const defaultErrorByCode = createHttpError(actualError.statusCode || 500);
+  const defaultErrorByCode = httpError(actualError.statusCode || 500);
 
   // set the error for request logger
   res.locals.result = new Error(
