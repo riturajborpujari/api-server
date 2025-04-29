@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 
+export type ApiHandler = (req: Request) => any;
 export type ResponseValidator = (response: any) => boolean;
 export type ErrorHandler = (
   err: Error,
@@ -21,26 +22,26 @@ export function createGateKeeper(
   ideology: IIdeology,
   prependHandlers: RequestHandler[] = []
 ) {
-  const guardApi =
-    (apiHandler: RequestHandler) =>
-    async (req: Request, res: Response, next: NextFunction) => {
-      try {
-        const result = await Reflect.apply(apiHandler, apiHandler, [req, res]);
+  return {
+    guard: (handlers: ApiHandler[]) => {
+      let result: any;
+      const allHandlers = [...prependHandlers, ...handlers];
 
-        if (ideology.isSendable(result)) {
-          return ideology.onResponse(result, req, res);
+      return async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          for (let handler of allHandlers) {
+            result = await Reflect.apply(handler, handler, [req]);
+            if (ideology.isSendable(result)) {
+              return ideology.onResponse(result, req, res);
+            }
+          }
+        } catch (err) {
+          return ideology.onError(err, req, res);
         }
 
+        // pass-through to other added handlers in the chain
         return next();
-      } catch (err) {
-        return ideology.onError(err, req, res);
-      }
-    };
-  return {
-    guard: (handlers: RequestHandler[]) => {
-      const pipeline = prependHandlers.concat(handlers);
-
-      return pipeline.map(handler => guardApi(handler));
+      };
     }
   };
 }

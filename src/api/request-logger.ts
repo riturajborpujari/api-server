@@ -21,7 +21,7 @@ function buildRequestLog(req: Request, res: Response, delayInMs) {
     req.method,
     req.baseUrl + req.path,
     `${delayInMs}ms`,
-    res.statusCode,
+    res.statusCode
   ];
 
   if (res.locals.result) {

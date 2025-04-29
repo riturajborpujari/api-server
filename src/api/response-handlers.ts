@@ -27,7 +27,9 @@ export const isSendable: ResponseValidator = response => {
 
 export const onResponse: ResponseHandler = (response, req, res) => {
   res.locals.result = response;
-  return res.status(response.statusCode || 200).json(response);
+  return res
+    .status(response.statusCode || 200)
+    .json(R.pick(["success", "message", "data"], response));
 };
 
 export const onError: ErrorHandler = (actualError: any, req, res) => {
@@ -50,7 +52,7 @@ export const onError: ErrorHandler = (actualError: any, req, res) => {
 };
 
 export const notFoundHandler: RequestHandler = (req, res) => {
-  res.locals.error = new Error("not found");
+  res.locals.result = new Error("not found");
   return res.status(404).json({ success: false, reason: "resource not found" });
 };
 
