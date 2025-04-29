@@ -6,10 +6,10 @@ const controller: RequestHandler = (req, res) => {
   return {
     success: true,
     message: "Demo API Protected Success response",
-    data: { foo: req.body.foo }
+    data: { name: req.body.name }
   };
 };
 
-const paramValidator = createParamValidator(["foo"], "body");
+const paramValidator = createParamValidator(["name"], "body");
 
 export const pipeline = protectedApi.guard([paramValidator, controller]);
