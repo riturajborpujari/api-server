@@ -16,18 +16,30 @@
 The boilerplate comes with demo API routes, contained in the `src/demo`
 sub-directory inside the project root
 
-1. POST `/demo/basic` - public endpoint with just the body parameter validation
-2. POST `/demo/protected` - protected with header based API Key
+## Public route
+POST `/demo/basic` - public endpoint with just the body parameter validation
 
-Both the APIs require the body to contain atleast a single field `name`. An
-example request body can be
-
-```json
-{
-  "name": "foo"
-}
+example curl
+```shell
+curl \
+    -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"name": "foo"}' \
+    localhost:3000/demo/basic
 ```
 
-The protected API requires an API Key to be provided in the header
-`x-api-key` and must match the value provided in the `environment/.env` file
-under field name `API_KEY`
+the API would fail with proper error if the body parameter `name` is not
+provided.
+
+## Protected route
+POST `/demo/protected` - protected with header based API Key
+
+example curl
+```shell
+curl \
+    -X POST \
+    -H "Content-Type: application/json" \
+    -H "x-api-key: top-secret-stuff" \
+    -d '{"name":"bar"}'
+    localhost:3000/demo/protected
+```
