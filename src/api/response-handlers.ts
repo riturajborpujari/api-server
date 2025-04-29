@@ -7,6 +7,7 @@ import {
   ResponseValidator
 } from "../utils/api.gate-keeper.utils";
 import { logger } from "../utils/logger.utils";
+import createHttpError = require("http-errors");
 
 export type ApiResponse = {
   success: true;
@@ -25,29 +26,32 @@ export const isSendable: ResponseValidator = response => {
 };
 
 export const onResponse: ResponseHandler = (response, req, res) => {
-  res.locals.response = response;
-  return res.json(response);
+  res.locals.result = response;
+  return res.status(response.statusCode || 200).json(response);
 };
 
-export const onError: ErrorHandler = (err: any, req, res) => {
-  res.locals.error = err;
-  logger.error(err.stack);
+export const onError: ErrorHandler = (actualError: any, req, res) => {
+  logger.debug(actualError.stack);
 
-  if (R.not(Reflect.has(err, "status"))) {
-    const defaultError = httpError.InternalServerError();
+  const defaultErrorByCode = createHttpError(actualError.statusCode || 500);
 
-    Reflect.set(err, "status", defaultError.status);
-    Reflect.set(err, "message", defaultError.message);
-  }
+  // set the error for request logger
+  res.locals.result = new Error(
+    `${defaultErrorByCode.message}: ${actualError.message}`
+  );
 
-  return res.status(err.status).json({
+  return res.status(defaultErrorByCode.status).json({
     success: false,
-    reason: err.message
+    reason:
+      defaultErrorByCode.status < 500
+        ? actualError.message
+        : defaultErrorByCode.message
   });
 };
 
 export const notFoundHandler: RequestHandler = (req, res) => {
-  return res.status(404).json({ success: false, reason: "Resource not found" });
+  res.locals.error = new Error("not found");
+  return res.status(404).json({ success: false, reason: "resource not found" });
 };
 
 export const globalErrorHandler: ErrorRequestHandler = (
@@ -56,7 +60,8 @@ export const globalErrorHandler: ErrorRequestHandler = (
   res,
   next
 ) => {
-  logger.error(err);
+  logger.error(err.message);
+  logger.info(err.stack);
   return res
     .status(500)
     .json({ success: false, reason: "Internal Server Error" });
