@@ -20,6 +20,6 @@ function isAuthorized(req: Request) {
   const xApiSecret = Reflect.get(req.headers, X_API_SECRET_FIELD);
 
   if (isNotEqual(getConfig().API_SECRET, xApiSecret)) {
-    throw httpError.Forbidden("Access Denied");
+    throw httpError.Forbidden("invalid api key");
   }
 }
