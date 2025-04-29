@@ -17,9 +17,11 @@ The boilerplate comes with demo API routes, contained in the `src/demo`
 sub-directory inside the project root
 
 ## Public route
+
 POST `/demo/basic` - public endpoint with just the body parameter validation
 
 example curl
+
 ```shell
 curl \
     -X POST \
@@ -32,9 +34,11 @@ the API would fail with proper error if the body parameter `name` is not
 provided.
 
 ## Protected route
+
 POST `/demo/protected` - protected with header based API Key
 
 example curl
+
 ```shell
 curl \
     -X POST \

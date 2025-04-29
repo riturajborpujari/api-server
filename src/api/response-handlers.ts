@@ -5,7 +5,7 @@ import {
   ErrorHandler,
   ResponseHandler,
   ResponseValidator
-} from "../utils/api.gate-keeper.utils";
+} from "../../libs/api-gatekeeper";
 import { logger } from "../utils/logger.utils";
 
 export type ApiResponse = {

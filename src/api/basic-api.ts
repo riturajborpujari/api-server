@@ -1,4 +1,4 @@
-import { createGateKeeper } from "../utils/api.gate-keeper.utils";
+import { createGateKeeper } from "../../libs/api-gatekeeper";
 import { isSendable, onError, onResponse } from "./response-handlers";
 
 export const basicApi = createGateKeeper({

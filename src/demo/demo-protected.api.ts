@@ -1,4 +1,4 @@
-import { ApiHandler } from "../utils/api.gate-keeper.utils";
+import { ApiHandler } from "../../libs/api-gatekeeper";
 import { createParamValidator } from "../api/param-validator";
 import { protectedApi } from "../api/protected-api";
 

@@ -1,6 +1,6 @@
 import * as R from "ramda";
 import * as httpError from "http-errors";
-import { ApiHandler } from "../utils/api.gate-keeper.utils";
+import { ApiHandler } from "../../libs/api-gatekeeper";
 
 export const createParamValidator =
   (params: string[], reqKey: "body" | "query" | "params"): ApiHandler =>

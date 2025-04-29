@@ -20,7 +20,7 @@ export interface IIdeology {
 
 export function createGateKeeper(
   ideology: IIdeology,
-  prependHandlers: RequestHandler[] = []
+  prependHandlers: ApiHandler[] = []
 ) {
   return {
     guard: (handlers: ApiHandler[]) => {

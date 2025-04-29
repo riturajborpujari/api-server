@@ -1,6 +1,6 @@
 import { Request } from "express";
 import * as httpError from "http-errors";
-import { createGateKeeper } from "../utils/api.gate-keeper.utils";
+import { createGateKeeper } from "../../libs/api-gatekeeper";
 import { isSendable, onError, onResponse } from "./response-handlers";
 import { getConfig } from "../config/config.service";
 import { isNotEqual } from "../utils/bool.utils";
