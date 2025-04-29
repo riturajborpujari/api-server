@@ -35,7 +35,7 @@ function sanitizeConfig(conf: any): IAppConfig {
     APP_PORT: Number(conf.APP_PORT),
     LOG_LEVEL: conf.LOG_LEVEL,
 
-    API_SECRET: conf.API_SECRET
+    API_KEY: conf.API_KEY
   };
 
   const missingConfigs = REQUIRED_CONFIGS.filter(field =>
@@ -61,7 +61,7 @@ function isLikeAppConfig(conf: any): conf is IAppConfig {
     typeof conf.APP_NAME === "string",
     typeof conf.APP_PORT === "number",
     R.includes(conf.LOG_LEVEL, ["error", "warn", "info", "verbose", "debug"]),
-    typeof conf.API_SECRET === "string"
+    typeof conf.API_KEY === "string"
   );
 
   return isValid;

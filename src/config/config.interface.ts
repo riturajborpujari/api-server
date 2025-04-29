@@ -4,5 +4,5 @@ export interface IAppConfig {
   APP_PORT: number;
   LOG_LEVEL: "error" | "warn" | "info" | "verbose" | "debug";
 
-  API_SECRET: string;
+  API_KEY: string;
 }

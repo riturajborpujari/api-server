@@ -5,7 +5,7 @@ import { isSendable, onError, onResponse } from "./response-handlers";
 import { getConfig } from "../config/config.service";
 import { isNotEqual } from "../utils/bool.utils";
 
-const X_API_SECRET_FIELD = "x-api-secret";
+const X_API_KEY_FIELD = "x-api-key";
 
 export const protectedApi = createGateKeeper(
   {
@@ -17,9 +17,9 @@ export const protectedApi = createGateKeeper(
 );
 
 function isAuthorized(req: Request) {
-  const xApiSecret = Reflect.get(req.headers, X_API_SECRET_FIELD);
+  const apiKey = Reflect.get(req.headers, X_API_KEY_FIELD);
 
-  if (isNotEqual(getConfig().API_SECRET, xApiSecret)) {
+  if (isNotEqual(getConfig().API_KEY, apiKey)) {
     throw httpError.Forbidden("invalid api key");
   }
 }
